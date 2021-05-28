@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     private lazy var mainContainerStackView: UIStackView = UIStackView.buildView {
         $0.axis = .horizontal
     }
@@ -16,14 +16,18 @@ class HomeViewController: UIViewController {
         $0.font = .systemFont(ofSize: 17)
     }
     
-    private lazy var imageView: UIImageView = UIImageView.buildView()
+    private lazy var spaceImageView: UIImageView = UIImageView.buildView()
     
     private lazy var explanationLabel: UILabel = UILabel.buildView {
         $0.font = .systemFont(ofSize: 14)
     }
     
-    init() {
+    private let viewModel: HomeViewRepresentable
+    
+    init(viewModel: HomeViewRepresentable) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        setupBinding()
     }
     
     required init?(coder: NSCoder) {
@@ -33,18 +37,19 @@ class HomeViewController: UIViewController {
     override func loadView() {
         super.loadView()
         setupUI()
-        view.backgroundColor = .systemBackground
-        title = "Pic of the Day"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.viewLoaded()
     }
     
     private func setupUI() {
+        view.backgroundColor = .systemBackground
+        title = viewModel.title
         view.addSubview(mainContainerStackView)
         
-        [titleLabel, imageView, explanationLabel].forEach { mainContainerStackView.addArrangedSubview($0) }
+        [titleLabel, spaceImageView, explanationLabel].forEach { mainContainerStackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
             mainContainerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -52,5 +57,21 @@ class HomeViewController: UIViewController {
             mainContainerStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
             mainContainerStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 8)
         ])
+    }
+    
+    private func setupBinding() {
+        viewModel.refreshUI = { [weak self] presentationData in
+            self?.renderDataOnUI(presentationData)
+        }
+        
+        viewModel.showError = { [weak self] errorContent in
+            // TODO: Show error with the content
+        }
+    }
+    
+    private func renderDataOnUI(_ presentationData: HomePresentationData) {
+        titleLabel.text = presentationData.title
+        // TODO: Load image in spaceImageView
+        explanationLabel.text = presentationData.explanation
     }
 }
