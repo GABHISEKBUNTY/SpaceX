@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		935E8D7A2661528E006C6448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D792661528E006C6448 /* AppDelegate.swift */; };
 		935E8D7C2661528E006C6448 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D7B2661528E006C6448 /* SceneDelegate.swift */; };
-		935E8D7E2661528E006C6448 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D7D2661528E006C6448 /* ViewController.swift */; };
+		935E8D7E2661528E006C6448 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D7D2661528E006C6448 /* HomeViewController.swift */; };
 		935E8D812661528E006C6448 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 935E8D7F2661528E006C6448 /* Main.storyboard */; };
 		935E8D832661528F006C6448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 935E8D822661528F006C6448 /* Assets.xcassets */; };
 		935E8D862661528F006C6448 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 935E8D842661528F006C6448 /* LaunchScreen.storyboard */; };
 		935E8D912661528F006C6448 /* SpaceXiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D902661528F006C6448 /* SpaceXiOSTests.swift */; };
 		935E8D9C2661528F006C6448 /* SpaceXiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D9B2661528F006C6448 /* SpaceXiOSUITests.swift */; };
+		93F870A526615C770061FDAC /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F870A426615C770061FDAC /* UIViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,7 @@
 		935E8D762661528E006C6448 /* SpaceXiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceXiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		935E8D792661528E006C6448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		935E8D7B2661528E006C6448 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		935E8D7D2661528E006C6448 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		935E8D7D2661528E006C6448 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		935E8D802661528E006C6448 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		935E8D822661528F006C6448 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		935E8D852661528F006C6448 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +50,7 @@
 		935E8D972661528F006C6448 /* SpaceXiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceXiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		935E8D9B2661528F006C6448 /* SpaceXiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceXiOSUITests.swift; sourceTree = "<group>"; };
 		935E8D9D2661528F006C6448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93F870A426615C770061FDAC /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,12 +101,11 @@
 		935E8D782661528E006C6448 /* SpaceXiOS */ = {
 			isa = PBXGroup;
 			children = (
-				935E8D792661528E006C6448 /* AppDelegate.swift */,
-				935E8D7B2661528E006C6448 /* SceneDelegate.swift */,
-				935E8D7D2661528E006C6448 /* ViewController.swift */,
-				935E8D7F2661528E006C6448 /* Main.storyboard */,
+				935E8DAF26615785006C6448 /* AppDelegate */,
+				935E8DB1266157A9006C6448 /* Module */,
+				93F870A226615C600061FDAC /* Utils */,
+				935E8DB026615790006C6448 /* Storyboard */,
 				935E8D822661528F006C6448 /* Assets.xcassets */,
-				935E8D842661528F006C6448 /* LaunchScreen.storyboard */,
 				935E8D872661528F006C6448 /* Info.plist */,
 			);
 			path = SpaceXiOS;
@@ -126,6 +127,48 @@
 				935E8D9D2661528F006C6448 /* Info.plist */,
 			);
 			path = SpaceXiOSUITests;
+			sourceTree = "<group>";
+		};
+		935E8DAF26615785006C6448 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				935E8D792661528E006C6448 /* AppDelegate.swift */,
+				935E8D7B2661528E006C6448 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		935E8DB026615790006C6448 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				935E8D7F2661528E006C6448 /* Main.storyboard */,
+				935E8D842661528F006C6448 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		935E8DB1266157A9006C6448 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				935E8D7D2661528E006C6448 /* HomeViewController.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		93F870A226615C600061FDAC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				93F870A326615C680061FDAC /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		93F870A326615C680061FDAC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				93F870A426615C770061FDAC /* UIViewExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +301,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				935E8D7E2661528E006C6448 /* ViewController.swift in Sources */,
+				935E8D7E2661528E006C6448 /* HomeViewController.swift in Sources */,
 				935E8D7A2661528E006C6448 /* AppDelegate.swift in Sources */,
+				93F870A526615C770061FDAC /* UIViewExtensions.swift in Sources */,
 				935E8D7C2661528E006C6448 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
