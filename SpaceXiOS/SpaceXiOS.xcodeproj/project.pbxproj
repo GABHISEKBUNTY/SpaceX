@@ -17,6 +17,11 @@
 		935E8D9C2661528F006C6448 /* SpaceXiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D9B2661528F006C6448 /* SpaceXiOSUITests.swift */; };
 		93F870A526615C770061FDAC /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F870A426615C770061FDAC /* UIViewExtensions.swift */; };
 		93F870AD26615FAB0061FDAC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F870AC26615FAB0061FDAC /* HomeViewModel.swift */; };
+		93F870B3266163990061FDAC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F870B2266163990061FDAC /* NetworkManager.swift */; };
+		93F870BB2661CEF80061FDAC /* JSONDecoderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F870BA2661CEF80061FDAC /* JSONDecoderHelper.swift */; };
+		93F870C02661CFDC0061FDAC /* APODDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F870BF2661CFDC0061FDAC /* APODDataModel.swift */; };
+		93F870C52661D0100061FDAC /* ErrorParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F870C42661D0100061FDAC /* ErrorParser.swift */; };
+		93F870CA2661D0450061FDAC /* APODAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F870C92661D0450061FDAC /* APODAPIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,11 @@
 		935E8D9D2661528F006C6448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93F870A426615C770061FDAC /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		93F870AC26615FAB0061FDAC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		93F870B2266163990061FDAC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		93F870BA2661CEF80061FDAC /* JSONDecoderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoderHelper.swift; sourceTree = "<group>"; };
+		93F870BF2661CFDC0061FDAC /* APODDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODDataModel.swift; sourceTree = "<group>"; };
+		93F870C42661D0100061FDAC /* ErrorParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorParser.swift; sourceTree = "<group>"; };
+		93F870C92661D0450061FDAC /* APODAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APODAPIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +115,7 @@
 			children = (
 				935E8DAF26615785006C6448 /* AppDelegate */,
 				935E8DB1266157A9006C6448 /* Module */,
+				93F870B1266163830061FDAC /* Webservice */,
 				93F870A226615C600061FDAC /* Utils */,
 				935E8DB026615790006C6448 /* Storyboard */,
 				935E8D822661528F006C6448 /* Assets.xcassets */,
@@ -154,6 +165,8 @@
 			children = (
 				935E8D7D2661528E006C6448 /* HomeViewController.swift */,
 				93F870AC26615FAB0061FDAC /* HomeViewModel.swift */,
+				93F870C92661D0450061FDAC /* APODAPIService.swift */,
+				93F870BF2661CFDC0061FDAC /* APODDataModel.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -162,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				93F870A326615C680061FDAC /* Extensions */,
+				93F870BA2661CEF80061FDAC /* JSONDecoderHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -172,6 +186,15 @@
 				93F870A426615C770061FDAC /* UIViewExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		93F870B1266163830061FDAC /* Webservice */ = {
+			isa = PBXGroup;
+			children = (
+				93F870B2266163990061FDAC /* NetworkManager.swift */,
+				93F870C42661D0100061FDAC /* ErrorParser.swift */,
+			);
+			path = Webservice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,9 +327,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93F870B3266163990061FDAC /* NetworkManager.swift in Sources */,
 				935E8D7E2661528E006C6448 /* HomeViewController.swift in Sources */,
+				93F870CA2661D0450061FDAC /* APODAPIService.swift in Sources */,
 				935E8D7A2661528E006C6448 /* AppDelegate.swift in Sources */,
 				93F870A526615C770061FDAC /* UIViewExtensions.swift in Sources */,
+				93F870C52661D0100061FDAC /* ErrorParser.swift in Sources */,
+				93F870BB2661CEF80061FDAC /* JSONDecoderHelper.swift in Sources */,
+				93F870C02661CFDC0061FDAC /* APODDataModel.swift in Sources */,
 				93F870AD26615FAB0061FDAC /* HomeViewModel.swift in Sources */,
 				935E8D7C2661528E006C6448 /* SceneDelegate.swift in Sources */,
 			);

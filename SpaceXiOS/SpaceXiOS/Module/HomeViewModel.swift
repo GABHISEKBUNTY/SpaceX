@@ -33,7 +33,10 @@ final class HomeViewModel: HomeViewRepresentable {
     var showError: (ErrorContent) -> Void = { _ in }
     var refreshUI: (HomePresentationData) -> Void = { _ in }
     
-    init() {
+    private let networkManager: NetworkManagable
+    
+    init(networkManager: NetworkManagable = NetworkManager()) {
+        self.networkManager = networkManager
     }
     
     func viewLoaded() {
@@ -41,6 +44,15 @@ final class HomeViewModel: HomeViewRepresentable {
     }
     
     private func loadData() {
+        let apiResult: (Result<APODDataModel, SpaceXAPIError>) -> Void = { [weak self] apiData in
+            switch apiData {
+            case .success(let dataModel):
+                print(dataModel)
+            case .failure(let error):
+                print(error)
+            }
+        }
         
+        networkManager.getSomeData(api: APODAPIService.dailyImage, completion: apiResult)
     }
 }
