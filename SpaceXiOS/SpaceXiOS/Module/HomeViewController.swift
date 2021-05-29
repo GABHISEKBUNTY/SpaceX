@@ -14,7 +14,7 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var titleLabel: UILabel = UILabel.buildView {
-        $0.font = .systemFont(ofSize: 17)
+        $0.font = .systemFont(ofSize: 17, weight: .medium)
     }
     
     private lazy var spaceImageView: UIImageView = UIImageView.buildView {
@@ -22,6 +22,7 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var explanationLabel: UILabel = UILabel.buildView {
+        $0.numberOfLines = 0
         $0.font = .systemFont(ofSize: 14)
     }
     
@@ -52,13 +53,14 @@ final class HomeViewController: UIViewController {
         title = viewModel.title
         view.addSubview(mainContainerStackView)
         
-        [titleLabel, spaceImageView, explanationLabel].forEach { mainContainerStackView.addArrangedSubview($0) }
+        [titleLabel, spaceImageView, explanationLabel, UIView()].forEach { mainContainerStackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
             mainContainerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             mainContainerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             mainContainerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            mainContainerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            mainContainerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            spaceImageView.heightAnchor.constraint(equalTo: spaceImageView.widthAnchor)
         ])
     }
     
@@ -72,9 +74,8 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private func renderDataOnUI(_ presentationData: HomePresentationData) {
+    private func renderDataOnUI(_ presentationData: APODDataModel) {
         titleLabel.text = presentationData.title
-        // TODO: Load image in spaceImageView
         explanationLabel.text = presentationData.explanation
     }
 }

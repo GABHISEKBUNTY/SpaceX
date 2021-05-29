@@ -7,17 +7,6 @@
 
 import Foundation
 
-protocol APIData {
-    var url: String { get }
-    var cachePolicy: URLRequest.CachePolicy { get }
-}
-
-extension APIData {
-    var cachePolicy: URLRequest.CachePolicy {
-        .useProtocolCachePolicy
-    }
-}
-
 protocol NetworkManagable {
     @discardableResult func getSomeData<T: Decodable>(api: APIData, completion: @escaping (Result<T, SpaceXAPIError>)->Void) -> URLSessionTask?
     @discardableResult func getData(api: APIData, completion: @escaping (Result<Data, SpaceXAPIError>)->Void) -> URLSessionTask?

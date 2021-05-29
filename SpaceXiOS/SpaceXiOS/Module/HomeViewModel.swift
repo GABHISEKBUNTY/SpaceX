@@ -9,34 +9,28 @@ import Foundation
 
 struct ErrorContent {
     let errorMessage: String
-    let action: ()->Void
+    let action: (()->Void)?
 }
 
 protocol HomeViewRepresentable: class {
     // Output
     var title: String { get }
     var showError: (ErrorContent) -> Void { get set }
-    var refreshUI: (HomePresentationData) -> Void { get set }
+    var refreshUI: (APODDataModel) -> Void { get set }
     
     // Input
     func viewLoaded()
 }
 
-struct HomePresentationData {
-    let url: String?
-    let title: String
-    let explanation: String
-}
-
 final class HomeViewModel: HomeViewRepresentable {
     let title: String = "Pic of the Day"
     var showError: (ErrorContent) -> Void = { _ in }
-    var refreshUI: (HomePresentationData) -> Void = { _ in }
+    var refreshUI: (APODDataModel) -> Void = { _ in }
     
-    private let networkManager: NetworkManagable
+    private let apiService: APODAPIServiceable
     
-    init(networkManager: NetworkManagable = NetworkManager()) {
-        self.networkManager = networkManager
+    init(apiService: APODAPIServiceable = APODAPIService()) {
+        self.apiService = apiService
     }
     
     func viewLoaded() {
@@ -44,15 +38,28 @@ final class HomeViewModel: HomeViewRepresentable {
     }
     
     private func loadData() {
-        let apiResult: (Result<APODDataModel, SpaceXAPIError>) -> Void = { [weak self] apiData in
-            switch apiData {
-            case .success(let dataModel):
-                print(dataModel)
-            case .failure(let error):
-                print(error)
+        let apiResult: (Result<InMemoryData<APODDataModel>, SpaceXAPIError>) -> Void = { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let inMemoryData):
+                    self?.fetchedResponseSuccessfully(inMemoryData)
+                case .failure:
+                    return
+                }
             }
         }
         
-        networkManager.getSomeData(api: APODAPIService.dailyImage, completion: apiResult)
+        apiService.getAPODData(completion: apiResult)
+    }
+    
+    private func fetchedResponseSuccessfully(_ inMemoryData: InMemoryData<APODDataModel>) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if inMemoryData.isCached && !inMemoryData.data.date.isTodaysDate(formatter: dateFormatter) {
+            self.showError(ErrorContent(errorMessage: "", action: nil))
+        }
+        
+        self.refreshUI(inMemoryData.data)
     }
 }
