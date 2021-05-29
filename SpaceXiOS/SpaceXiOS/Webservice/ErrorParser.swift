@@ -13,6 +13,15 @@ enum SpaceXAPIError: Error {
     case decodingError(Error)
     case noInternetConnection
     case unknown
+    
+    var genericErrorMessage: String {
+        switch self {
+        case .noInternetConnection:
+            return "There seems to be some problem with your internet."
+        default:
+            return "We are working on it. Be right back"
+        }
+    }
 }
 
 struct ErrorParser {

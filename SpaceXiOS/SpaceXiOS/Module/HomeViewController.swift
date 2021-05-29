@@ -18,7 +18,7 @@ final class HomeViewController: UIViewController {
     }
     
     private lazy var spaceImageView: UIImageView = UIImageView.buildView {
-        $0.backgroundColor = .red
+        $0.contentMode = .scaleAspectFit
     }
     
     private lazy var explanationLabel: UILabel = UILabel.buildView {
@@ -70,12 +70,23 @@ final class HomeViewController: UIViewController {
         }
         
         viewModel.showError = { [weak self] errorContent in
-            // TODO: Show error with the content
+            self?.showErrorMessage(errorContent)
         }
     }
     
     private func renderDataOnUI(_ presentationData: APODDataModel) {
         titleLabel.text = presentationData.title
         explanationLabel.text = presentationData.explanation
+        
+        if let imageURL = URL(string: presentationData.url) {
+            spaceImageView.load(url: imageURL)
+        }
+    }
+    
+    private func showErrorMessage(_ errorContent: ErrorContent) {
+        let alert = UIAlertController(title: nil, message: errorContent.errorMessage, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
     }
 }

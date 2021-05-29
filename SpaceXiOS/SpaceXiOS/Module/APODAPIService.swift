@@ -36,8 +36,7 @@ class APODAPIService: APODAPIServiceable {
             case .success(let dataModel):
                 completion(.success(InMemoryData(data: dataModel, isCached: false)))
             case .failure(let error):
-                if case SpaceXAPIError.noInternetConnection = error,
-                   let cachedData = self?.getCachedDataForDailyImage() {
+                if let cachedData = self?.getCachedDataForDailyImage() {
                     completion(.success(InMemoryData(data: cachedData, isCached: true)))
                 } else {
                     completion(.failure(error))

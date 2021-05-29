@@ -43,8 +43,8 @@ final class HomeViewModel: HomeViewRepresentable {
                 switch result {
                 case .success(let inMemoryData):
                     self?.fetchedResponseSuccessfully(inMemoryData)
-                case .failure:
-                    return
+                case .failure(let error):
+                    self?.showError(ErrorContent(errorMessage: error.genericErrorMessage, action: nil))
                 }
             }
         }
