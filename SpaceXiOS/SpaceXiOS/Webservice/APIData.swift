@@ -28,8 +28,3 @@ extension APIData {
         return URLCache.shared.cachedResponse(for: urlRequest)?.data
     }
 }
-
-struct InMemoryData<T> {
-    let data: T
-    let isCached: Bool
-}

@@ -27,10 +27,10 @@ final class HomeViewModel: HomeViewRepresentable {
     var showError: (ErrorContent) -> Void = { _ in }
     var refreshUI: (APODDataModel) -> Void = { _ in }
     
-    private let apiService: APODAPIServiceable
+    private let networkManager: NetworkManagable
     
-    init(apiService: APODAPIServiceable = APODAPIService()) {
-        self.apiService = apiService
+    init(networkManager: NetworkManagable = NetworkManager()) {
+        self.networkManager = networkManager
     }
     
     func viewLoaded() {
@@ -38,28 +38,39 @@ final class HomeViewModel: HomeViewRepresentable {
     }
     
     private func loadData() {
-        let apiResult: (Result<InMemoryData<APODDataModel>, SpaceXAPIError>) -> Void = { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let inMemoryData):
-                    self?.fetchedResponseSuccessfully(inMemoryData)
-                case .failure(let error):
+        let apiResult: (Result<APODDataModel, SpaceXAPIError>) -> Void = { [weak self] apiData in
+            switch apiData {
+            case .success(let dataModel):
+                self?.refreshUI(dataModel)
+            case .failure(let error):
+                if let cachedData = self?.getCachedDataForDailyImage() {
+                    self?.fetchedCachedResponseSuccessfully(cachedData, error: error)
+                } else {
                     self?.showError(ErrorContent(errorMessage: error.genericErrorMessage, action: nil))
                 }
             }
         }
         
-        apiService.getAPODData(completion: apiResult)
+        networkManager.getSomeData(api: APODAPIData.dailyImage, completion: apiResult)
     }
     
-    private func fetchedResponseSuccessfully(_ inMemoryData: InMemoryData<APODDataModel>) {
+    private func getCachedDataForDailyImage() -> APODDataModel? {
+        if let cachedData = APODAPIData.dailyImage.getCachedData() {
+            return try? decode(cachedData)
+        }
+        
+        return nil
+    }
+    
+    private func fetchedCachedResponseSuccessfully(_ dataModel: APODDataModel, error: SpaceXAPIError) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        if inMemoryData.isCached && !inMemoryData.data.date.isTodaysDate(formatter: dateFormatter) {
-            self.showError(ErrorContent(errorMessage: "", action: nil))
+        if !dataModel.date.isTodaysDate(formatter: dateFormatter),
+           case SpaceXAPIError.noInternetConnection = error {
+            showError(ErrorContent(errorMessage: "We are not connected to the internet, showing you the last image we have.", action: nil))
         }
         
-        self.refreshUI(inMemoryData.data)
+        self.refreshUI(dataModel)
     }
 }

@@ -66,11 +66,15 @@ final class HomeViewController: UIViewController {
     
     private func setupBinding() {
         viewModel.refreshUI = { [weak self] presentationData in
-            self?.renderDataOnUI(presentationData)
+            DispatchQueue.main.async {
+                self?.renderDataOnUI(presentationData)
+            }
         }
         
         viewModel.showError = { [weak self] errorContent in
-            self?.showErrorMessage(errorContent)
+            DispatchQueue.main.async {
+                self?.showErrorMessage(errorContent)
+            }
         }
     }
     
