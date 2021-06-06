@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct ErrorContent {
+struct ErrorContent: Equatable {
+    static func == (lhs: ErrorContent, rhs: ErrorContent) -> Bool {
+        (lhs.errorMessage == rhs.errorMessage)
+    }
+    
     let errorMessage: String
     let action: (()->Void)?
 }
@@ -28,9 +32,12 @@ final class HomeViewModel: HomeViewRepresentable {
     var refreshUI: (APODDataModel) -> Void = { _ in }
     
     private let networkManager: NetworkManagable
+    private let cacheRetrievalHelper: CacheRetrievable
     
-    init(networkManager: NetworkManagable = NetworkManager()) {
+    init(networkManager: NetworkManagable = NetworkManager(),
+         cacheRetrievalHelper: CacheRetrievable = CacheRetrievalHelper()) {
         self.networkManager = networkManager
+        self.cacheRetrievalHelper = cacheRetrievalHelper
     }
     
     func viewLoaded() {
@@ -43,7 +50,7 @@ final class HomeViewModel: HomeViewRepresentable {
             case .success(let dataModel):
                 self?.refreshUI(dataModel)
             case .failure(let error):
-                if let cachedData = self?.getCachedDataForDailyImage() {
+                if let cachedData: APODDataModel = self?.cacheRetrievalHelper.getCachedDataForAPI(APODAPIData.dailyImage) {
                     self?.fetchedCachedResponseSuccessfully(cachedData, error: error)
                 } else {
                     self?.showError(ErrorContent(errorMessage: error.genericErrorMessage, action: nil))
@@ -52,14 +59,6 @@ final class HomeViewModel: HomeViewRepresentable {
         }
         
         networkManager.getSomeData(api: APODAPIData.dailyImage, completion: apiResult)
-    }
-    
-    private func getCachedDataForDailyImage() -> APODDataModel? {
-        if let cachedData = APODAPIData.dailyImage.getCachedData() {
-            return try? decode(cachedData)
-        }
-        
-        return nil
     }
     
     private func fetchedCachedResponseSuccessfully(_ dataModel: APODDataModel, error: SpaceXAPIError) {
@@ -71,6 +70,6 @@ final class HomeViewModel: HomeViewRepresentable {
             showError(ErrorContent(errorMessage: "We are not connected to the internet, showing you the last image we have.", action: nil))
         }
         
-        self.refreshUI(dataModel)
+        refreshUI(dataModel)
     }
 }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9321FEFF26654659008B7EAB /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9321FEFE26654659008B7EAB /* HomeViewModelTests.swift */; };
+		9321FF05266B5840008B7EAB /* CacheRetrievalHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9321FF04266B5840008B7EAB /* CacheRetrievalHelper.swift */; };
+		9321FF0A266D3A33008B7EAB /* MockCacheRetrievableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9321FF09266D3A33008B7EAB /* MockCacheRetrievableHelper.swift */; };
+		9321FF0F266D3A5B008B7EAB /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9321FF0E266D3A5B008B7EAB /* MockNetworkManager.swift */; };
 		935E8D7A2661528E006C6448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D792661528E006C6448 /* AppDelegate.swift */; };
 		935E8D7C2661528E006C6448 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D7B2661528E006C6448 /* SceneDelegate.swift */; };
 		935E8D7E2661528E006C6448 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E8D7D2661528E006C6448 /* HomeViewController.swift */; };
@@ -45,6 +49,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9321FEFE26654659008B7EAB /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		9321FF04266B5840008B7EAB /* CacheRetrievalHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRetrievalHelper.swift; sourceTree = "<group>"; };
+		9321FF09266D3A33008B7EAB /* MockCacheRetrievableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCacheRetrievableHelper.swift; sourceTree = "<group>"; };
+		9321FF0E266D3A5B008B7EAB /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		935E8D762661528E006C6448 /* SpaceXiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceXiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		935E8D792661528E006C6448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		935E8D7B2661528E006C6448 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +142,9 @@
 			isa = PBXGroup;
 			children = (
 				935E8D902661528F006C6448 /* SpaceXiOSTests.swift */,
+				9321FEFE26654659008B7EAB /* HomeViewModelTests.swift */,
+				9321FF09266D3A33008B7EAB /* MockCacheRetrievableHelper.swift */,
+				9321FF0E266D3A5B008B7EAB /* MockNetworkManager.swift */,
 				935E8D922661528F006C6448 /* Info.plist */,
 			);
 			path = SpaceXiOSTests;
@@ -201,6 +212,7 @@
 			children = (
 				93F870B2266163990061FDAC /* NetworkManager.swift */,
 				93F870D226625BDF0061FDAC /* APIData.swift */,
+				9321FF04266B5840008B7EAB /* CacheRetrievalHelper.swift */,
 				93F870C42661D0100061FDAC /* ErrorParser.swift */,
 			);
 			path = Webservice;
@@ -349,6 +361,7 @@
 				93F870C02661CFDC0061FDAC /* APODDataModel.swift in Sources */,
 				93F870AD26615FAB0061FDAC /* HomeViewModel.swift in Sources */,
 				935E8D7C2661528E006C6448 /* SceneDelegate.swift in Sources */,
+				9321FF05266B5840008B7EAB /* CacheRetrievalHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +369,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9321FF0A266D3A33008B7EAB /* MockCacheRetrievableHelper.swift in Sources */,
 				935E8D912661528F006C6448 /* SpaceXiOSTests.swift in Sources */,
+				9321FF0F266D3A5B008B7EAB /* MockNetworkManager.swift in Sources */,
+				9321FEFF26654659008B7EAB /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,14 +17,3 @@ extension APIData {
         .useProtocolCachePolicy
     }
 }
-
-extension APIData {
-    func getCachedData() -> Data? {
-        guard let urlVal = URL(string: url) else {
-            return nil
-        }
-        
-        let urlRequest = URLRequest(url: urlVal)
-        return URLCache.shared.cachedResponse(for: urlRequest)?.data
-    }
-}
