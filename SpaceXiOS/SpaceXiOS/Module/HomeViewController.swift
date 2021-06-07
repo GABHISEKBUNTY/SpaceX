@@ -26,6 +26,10 @@ final class HomeViewController: UIViewController {
         $0.font = .systemFont(ofSize: 14)
     }
     
+    private lazy var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView.buildView {
+        $0.color = .darkGray
+    }
+    
     private let viewModel: HomeViewRepresentable
     
     init(viewModel: HomeViewRepresentable) {
@@ -45,6 +49,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        startLoader()
         viewModel.viewLoaded()
     }
     
@@ -52,6 +57,7 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = viewModel.title
         view.addSubview(mainContainerStackView)
+        view.addSubview(activityIndicator)
         
         [titleLabel, spaceImageView, explanationLabel, UIView()].forEach { mainContainerStackView.addArrangedSubview($0) }
         
@@ -60,19 +66,23 @@ final class HomeViewController: UIViewController {
             mainContainerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             mainContainerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             mainContainerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            spaceImageView.heightAnchor.constraint(equalTo: spaceImageView.widthAnchor)
+            spaceImageView.heightAnchor.constraint(equalTo: spaceImageView.widthAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
     private func setupBinding() {
         viewModel.refreshUI = { [weak self] presentationData in
             DispatchQueue.main.async {
+                self?.stopLoader()
                 self?.renderDataOnUI(presentationData)
             }
         }
         
         viewModel.showError = { [weak self] errorContent in
             DispatchQueue.main.async {
+                self?.stopLoader()
                 self?.showErrorMessage(errorContent)
             }
         }
@@ -92,5 +102,15 @@ final class HomeViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true)
+    }
+    
+    private func startLoader() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func stopLoader() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
     }
 }
